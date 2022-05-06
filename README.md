@@ -57,7 +57,19 @@ After approving sensor access, you will see a camera view with a yellow target i
 
 ### Magic URL Parameters
 
-Appending the query parameter `?debug=1` to the URL when loading the website will add a small message panel to the top of the screen to display any log messages written to the JavaScript console via `console.log()` and similar console API calls.
+#### `?disableAR=1`
+
+By default, when you load the website on a device that doesn't support AR - such as a laptop - it will present the user with a QR code to be scanned by an AR-capable device. However, during development, it can be much more convenient to interact with your 3D content on your desktop. By appending this URL parameter, the scene will supress the QR code and instead display your scene with a simple ground plane and a camera that can be rotated and panned with the mouse.
+
+*Example URL:* `https://my-ar-app-url.com/?disableAR=1`
+
+#### `?debug=1`
+
+Appending the query parameter `debug=1` to the URL when loading the website will add a small message panel to the top of the screen to display any log messages written to the JavaScript console via `console.log()` and similar console API calls. This makes it possible to easily view log messages while running on mobile.
+
+*Example URL:* `https://my-ar-app-url.com/?debug=1`
+
+Note, the `debug` param only works if AR hasn't been disabled via the `disableAR` URL parameter.
 
 
 
