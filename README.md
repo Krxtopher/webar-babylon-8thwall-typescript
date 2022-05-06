@@ -1,92 +1,67 @@
-# WebAR - Babylon + 8thWall + TypeScript
+# Babylon, 8thWall, TypeScript Template
+
+*A web augmented reality (AR) template using Babylon.js (3D engine), 8th Wall (AR tracking), and TypeScript.*
 
 
 
-## Getting started
+## Prerequisites
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+- An [8th Wall](https://www.8thwall.com/) developer account
+- NPM installed
+- (Recommended) VS Code
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
 
-## Add your files
 
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
+## Local Dev Environment Setup
+
+1. After cloning this repository, open an Terminal window and navigate to the repository root folder.
+2. Install project dependencies by running:
 
 ```
-cd existing_repo
-git remote add origin https://gitlab.aws.dev/schultkr/webar-babylon-8thwall-typescript.git
-git branch -M main
-git push -uf origin main
+npm install
 ```
 
-## Integrate with your tools
 
-- [ ] [Set up project integrations](https://gitlab.aws.dev/schultkr/webar-babylon-8thwall-typescript/-/settings/integrations)
 
-## Collaborate with your team
+## 8th Wall Setup
 
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Automatically merge when pipeline succeeds](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
+1. Log into the 8th Wall developer console and create a new project.
+2. Authorize one or more mobile devices to access that project.
+3. Edit line 29 of the `public/index.html` file to include the app key from your 8th Wall project. The project's app key can be found on the "Settings" tab within the project on the 8th Wall developer portal.
 
-## Test and Deploy
 
-Use the built-in continuous integration in GitLab.
 
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing(SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
+## Building and Distributing the Application
 
-***
+To build a distributable version of the application run:
 
-# Editing this README
+```
+npm build
+```
 
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!).  Thank you to [makeareadme.com](https://www.makeareadme.com/) for this template.
+This will generate a distributable build to a folder called `dist/`. Deploy the files in this folder to a publicly accessible web server.
 
-## Suggestions for a good README
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
+> :bulb: Tip: [AWS Amplify](https://aws.amazon.com/amplify/) provides a fantastic, easy solution for hosting web apps like this one!
 
-## Name
-Choose a self-explaining name for your project.
 
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
 
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
+## Using the App
 
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
+From one of the mobile devices you authorized above, visit the URL of your deployed application.
 
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
+> :pencil2: Note: Alternatively, you can open the URL in a desktop browser. It will automatically display a QR code that can be scanned from your authorized device.
 
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
+Upon loading the app, you will be prompted to allow the app to access the motion sensors and camera on your device.
 
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
+After approving sensor access, you will see a camera view with a yellow target in the middle. Aim your camera wherever you would like to place the sample AR object and click the "Place Object" button.
 
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
+### Magic URL Parameters
 
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
+Appending the query parameter `?debug=1` to the URL when loading the website will add a small message panel to the top of the screen to display any log messages written to the JavaScript console via `console.log()` and similar console API calls.
 
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
 
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
 
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
+## Customizing the App
 
-## License
-For open source projects, say how it is licensed.
+To start adding your own custom functionality to the app, you'll likely want to modify the `DemoScene.ts` file.
 
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
