@@ -10,6 +10,9 @@ import {
   Vector2,
 } from '@babylonjs/core';
 
+/**
+ *
+ */
 class HSurfaceCursor {
   targetScreenPosition: Nullable<Vector2> = null;
 

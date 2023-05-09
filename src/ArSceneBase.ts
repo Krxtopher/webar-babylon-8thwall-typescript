@@ -19,13 +19,37 @@ import { ShadowOnlyMaterial } from '@babylonjs/materials';
 
 const globals = window as any;
 
+/**
+ * A base class for AR scenes. This class provides a lighting and camera setup
+ * appropriate for AR. It also provides the ability to run in a non-AR mode.
+ */
 class ArSceneBase extends Scene {
+  /**
+   * A ShadowGenerator for the scene's primary light. If you'd like a mesh in
+   * your scene to cast shadows, use...
+```
+this.shadowGenerator.addShadowCaster(mesh);
+```
+   */
   protected shadowGenerator!: ShadowGenerator;
 
+  /**
+   * The ground mesh for this scene.
+   */
   protected ground!: Mesh;
 
+  /**
+   * Indicates if the scene is running in AR mode. Controlled by the `disableAR`
+   * constructor parameter.
+   */
   protected isArEnabled = false;
 
+  /**
+   * Constructor.
+   * @param engine The Babylon engine instance to use
+   * @param disableAr A value of true will result in a scene that contains
+   * a visible ground plane and a non-AR camera.
+   */
   constructor(engine: Engine, disableAr = false) {
     super(engine);
 
@@ -36,6 +60,10 @@ class ArSceneBase extends Scene {
     this.setUpCamera();
   }
 
+  /**
+   * Called automatically during construction to build the base 3D environment
+   * elements, for example, a ground plane.
+   */
   protected setUpEnvironment(): void {
     if (this.isArEnabled) {
       this.setUpArEnvironment();
@@ -44,6 +72,10 @@ class ArSceneBase extends Scene {
     }
   }
 
+  /**
+   * Called automatically during construction when the `disableAR` constructor
+   * argument is `false`.
+   */
   protected setUpArEnvironment(): void {
     this.ground = MeshBuilder.CreateGround('Ground', { width: 20, height: 20 });
     this.ground.receiveShadows = true;
@@ -56,6 +88,10 @@ class ArSceneBase extends Scene {
     this.ground.material = material;
   }
 
+  /**
+   * Called automatically during construction when the `disableAR` constructor
+   * argument is `true`.
+   */
   protected setUpNonArEnvironment(): void {
     // Use black environment background.
     this.clearColor = new Color4(0, 0, 0, 1);
@@ -76,6 +112,10 @@ class ArSceneBase extends Scene {
     this.ground.material = material;
   }
 
+  /**
+   * Called automatically during custruction to create lighting for the scene,
+   * inluding shadow casting.
+   */
   protected setUpLighting(): void {
     // Set up image-based lighting (IBL).
     const iblTexture = new CubeTexture('./assets/textures/comfy_cafe_1k.env', this);
@@ -94,6 +134,10 @@ class ArSceneBase extends Scene {
     this.shadowGenerator.blurScale = 4;
   }
 
+  /**
+   * Called automatically during cunsturction to create an appropriate camera
+   * for the scene.
+   */
   protected setUpCamera(): void {
     if (this.isArEnabled) {
       const camera = new FreeCamera('Camera', new Vector3(0, 1, 0), this);
